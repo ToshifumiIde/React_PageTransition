@@ -1,17 +1,18 @@
-import React from 'react';
+import React , {useState , useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
+// import Grid from '@material-ui/core/Grid';
 // import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import firebase from "../config/firebase";
 
 function Copyright() {
   return (
@@ -51,10 +52,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+const SignIn = () =>{
   const classes = useStyles();
+  const [email , setEmail] = useState("");
+  const [password , setPassword] = useState("");
+  const [disabled , setDisabled] = useState(true)
 
-  return (
+  useEffect(()=> {
+    const disabledEmail = email !== "";
+    const disabledPassword = password !== "";
+    if(disabledEmail && disabledPassword){
+      setDisabled(false)
+    }
+  },[email,password])
+
+
+  const handleSubmit = e =>{
+    e.preventDefault();
+    console.log("送信されました");
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+		.then( () => {
+			console.log("Signup Succeeded!");
+		}) 
+		.catch( (err) => {
+			console.log(err);
+		});
+    setPassword("");
+    setEmail("");
+  }
+
+
+  return(
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -62,6 +90,12 @@ export default function SignIn() {
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign In
+        </Typography>
+        <Typography component="h2" variant="h5">
+          Email:test@example.com
+        </Typography>
+        <Typography component="h2" variant="h5">
+          Pass:test
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -74,6 +108,10 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e)=>{
+              setEmail(e.target.value)
+            }}
+            value={email}
           />
           <TextField
             variant="outlined"
@@ -85,32 +123,40 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={e=>{
+              setPassword(e.target.value)
+            }}
+            value={password}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={disabled}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
-          <Grid container>
+          {/* <Grid container>
             <Grid item>
               <Link href="#" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid>
+          </Grid> */}
         </form>
       </div>
       <Box mt={8}>
         <Copyright />
       </Box>
     </Container>
-  );
+  )
 }
+
+export default SignIn;

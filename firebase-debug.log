@@ -1,0 +1,35 @@
+[debug] [2020-12-12T14:23:17.650Z] ----------------------------------------------------------------------
+[debug] [2020-12-12T14:23:17.653Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2020-12-12T14:23:17.654Z] CLI Version:   8.2.0
+[debug] [2020-12-12T14:23:17.654Z] Platform:      darwin
+[debug] [2020-12-12T14:23:17.654Z] Node Version:  v12.14.1
+[debug] [2020-12-12T14:23:17.656Z] Time:          Sat Dec 12 2020 23:23:17 GMT+0900 (GMT+09:00)
+[debug] [2020-12-12T14:23:17.657Z] ----------------------------------------------------------------------
+[debug] [2020-12-12T14:23:17.657Z] 
+[debug] [2020-12-12T14:23:17.671Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-12-12T14:23:17.671Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/idetoshifumi/Desktop/PageTransition/pagetransition
+
+[debug] [2020-12-13T02:05:15.540Z] Error: write EIO
+    at afterWriteDispatched (internal/stream_base_commons.js:149:25)
+    at writeGeneric (internal/stream_base_commons.js:140:3)
+    at WriteStream.Socket._writeGeneric (net.js:776:11)
+    at WriteStream.Socket._write (net.js:788:8)
+    at doWrite (_stream_writable.js:435:12)
+    at writeOrBuffer (_stream_writable.js:419:5)
+    at WriteStream.Writable.write (_stream_writable.js:309:11)
+    at EventEmitter.signalExit.alwaysLast (/usr/local/lib/node_modules/firebase-tools/node_modules/restore-cursor/index.js:7:18)
+    at EventEmitter.emit (events.js:223:5)
+    at EventEmitter.emit (domain.js:475:20)
+    at emit (/usr/local/lib/node_modules/firebase-tools/node_modules/signal-exit/index.js:78:11)
+    at process.listener (/usr/local/lib/node_modules/firebase-tools/node_modules/signal-exit/index.js:94:7)
+    at process.emit (events.js:223:5)

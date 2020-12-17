@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import ReactDOM from "react-dom";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -11,13 +11,16 @@ import {
 } from "react-router-dom";
 
 const App = ()=>{
+  // const [email , setEmail] = useState("");
+  // const [password , setPassword] = useState("");
+
   return(
     <Router>
       <Switch>
-    <Route path="/signup" component={SignUp} />
-    <Route path="/signin" component={SignIn} />
-    <Route path="/main" component={Main} />
-    </Switch>
+        <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
+        <Route path="/main" component={Main} />
+      </Switch>
     </Router>
   )
 }
