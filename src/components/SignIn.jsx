@@ -69,7 +69,7 @@ const SignIn = () =>{
 
   const handleSubmit = e =>{
     e.preventDefault();
-    console.log("送信されました");
+    console.log("送信しました");
     firebase.auth().createUserWithEmailAndPassword(email, password)
 		.then( () => {
 			console.log("Signup Succeeded!");
