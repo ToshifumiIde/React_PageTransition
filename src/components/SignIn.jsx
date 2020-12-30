@@ -70,7 +70,7 @@ const SignIn = () =>{
   const handleSubmit = e =>{
     e.preventDefault();
     console.log("送信しました");
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password)
 		.then( () => {
 			console.log("Signup Succeeded!");
 		}) 
@@ -95,7 +95,7 @@ const SignIn = () =>{
           Email:test@example.com
         </Typography>
         <Typography component="h2" variant="h5">
-          Pass:test
+          Pass:testsample
         </Typography>
         <form className={classes.form} noValidate>
           <TextField

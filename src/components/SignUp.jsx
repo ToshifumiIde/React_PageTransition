@@ -52,21 +52,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () =>{
+const SignUp = () => {
   const classes = useStyles();
   const [email , setEmail] = useState("");
   const [password , setPassword] = useState("");
+  const [name , setName] = useState("");
   const [disabled , setDisabled] = useState(true)
 
   useEffect(()=> {
     const disabledEmail = email !== "";
     const disabledPassword = password !== "";
-    if(disabledEmail && disabledPassword){
-      setDisabled(false)
+    const disabledName = name !== "";
+    if(disabledEmail && disabledPassword && disabledName){
+      setDisabled(false);
     }
-  },[email,password])
+  },[email,password,name])
 
-  const handleSubmit = e =>{
+  const handleSubmit = e => {
     e.preventDefault();
     console.log("送信されました");
     firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -89,7 +91,28 @@ const SignUp = () =>{
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
+        <Typography component="h2" variant="h5">
+          Email:test@example.com
+        </Typography>
+        <Typography component="h2" variant="h5">
+          Pass:testsample
+        </Typography>
         <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="Your Name"
+            name="name"
+            autoComplete="name"
+            autoFocus
+            onChange={(e)=> {
+              setName(e.target.value)
+            }}
+            value={name}
+          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -99,7 +122,6 @@ const SignUp = () =>{
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
             onChange={(e)=>{
               setEmail(e.target.value)
             }}
@@ -111,11 +133,11 @@ const SignUp = () =>{
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Password(At least 6 characters)"
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={e=>{
+            onChange={e=> {
               setPassword(e.target.value)
             }}
             value={password}
@@ -133,7 +155,7 @@ const SignUp = () =>{
             disabled={disabled}
             onClick={handleSubmit}
           >
-            Sign In
+            SIGN UP
           </Button>
           {/* <Grid container>
             <Grid item>
