@@ -2,7 +2,7 @@ import React from "react";
 import { Route , Redirect } from "react-router-dom";
 import { AuthContext } from "./AuthService";
 
-const LoggedInRoute =({component:Component , ...rest}) =>{
+const LoggedInRoute =({component:Component , ...rest}) => {
   const user = useContext(AuthContext);
 
   return(
@@ -12,7 +12,7 @@ const LoggedInRoute =({component:Component , ...rest}) =>{
         user ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/login"/>
+          <Redirect to={"/login"} />
         )
       }}
     />

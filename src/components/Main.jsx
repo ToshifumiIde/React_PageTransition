@@ -1,40 +1,50 @@
-import React,{useState, useEffect , useContext} from 'react'
+import React, { useState, useContext } from "react";
 import firebase from "../config/firebase";
-import { AuthContext } from '../AuthService';
+import { AuthContext } from "../AuthService";
 
 const Main = () => {
-  const [ messages , setMessages ] = useState("");
-  const [value , setValue] = useState("");
+  const [messages, setMessages] = useState("");
+  const [value, setValue] = useState("");
   const user = useContext(AuthContext);
+
   
-  const handleSubmit = (e)=> {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setMessages([
       ...messages,
       {
-      user:"john",
-      content:value,
+        user: "john",
+        content: value,
       },
-  ])
-  console.log(messages);
-  console.log(user);
-
-  }
+    ]);
+    console.log(messages);
+    console.log(user);
+  };
 
   return (
     <div>
       <p>Main</p>
+      <ul>
+        <li>sample user : sample message</li>
+      </ul>
       <form action="" onSubmit={handleSubmit}>
-        <input 
-          type="text" 
+        <input
+          type="text"
           value={value}
-          onChange={(e => {
+          onChange={(e) => {
             setValue(e.target.value);
-          })}
-          />
+          }}
+        />
+        <button type="submit">送信</button>
       </form>
+      <button onClick={() =>
+        firebase.auth().signOut()
+      }>
+        Logout
+      </button>
     </div>
-  )
-}
+  );
+};
 
 export default Main;
