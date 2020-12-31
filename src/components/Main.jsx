@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext , useEffect } from "react";
 import firebase from "../config/firebase";
 import { AuthContext } from "../AuthService";
 
@@ -7,7 +7,15 @@ const Main = () => {
   const [value, setValue] = useState("");
   const user = useContext(AuthContext);
 
-  
+  useEffect(()=> {
+    firebase.firestore().collection("messages")
+      .onSnapshot((snapshot) => {
+        const messages = snapshot.docs.map(doc =>{
+          return doc.data()
+        })
+        setMessages(messages);
+      })
+  } , {})
 
   const handleSubmit = (e) => {
     e.preventDefault();

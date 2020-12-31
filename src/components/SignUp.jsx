@@ -1,13 +1,13 @@
-import React , {useState , useEffect} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React, { useState, useEffect } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 // import Grid from '@material-ui/core/Grid';
@@ -17,17 +17,12 @@ import firebase from "../config/firebase";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link 
-        color="inherit" 
-        href="#" 
-        target="_blank" 
-        rel="noopener"
-      >
+      {"Copyright © "}
+      <Link color="inherit" href="#" target="_blank" rel="noopener">
         Toshifumi Ide
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -35,16 +30,16 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -54,40 +49,42 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
-  const [email , setEmail] = useState("");
-  const [password , setPassword] = useState("");
-  const [name , setName] = useState("");
-  const [disabled , setDisabled] = useState(true)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [disabled, setDisabled] = useState(true);
 
-  useEffect(()=> {
+  useEffect(() => {
     const disabledEmail = email !== "";
     const disabledPassword = password !== "";
     const disabledName = name !== "";
-    if(disabledEmail && disabledPassword && disabledName){
+    if (disabledEmail && disabledPassword && disabledName) {
       setDisabled(false);
     }
-  },[email,password,name])
+  }, [email, password, name]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("送信されました");
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-		.then( () => {
-			console.log("SignUp Succeeded!");
-		}) 
-		.catch( (err) => {
-			console.log(err);
-		});
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(({ user }) => {
+        user.updateProfile({
+          displayName: name,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setPassword("");
     setEmail("");
-  }
+  };
 
-  return(
+  return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-        </Avatar>
+        <Avatar className={classes.avatar}></Avatar>
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
@@ -108,8 +105,8 @@ const SignUp = () => {
             name="name"
             autoComplete="name"
             autoFocus
-            onChange={(e)=> {
-              setName(e.target.value)
+            onChange={(e) => {
+              setName(e.target.value);
             }}
             value={name}
           />
@@ -122,8 +119,8 @@ const SignUp = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
-            onChange={(e)=>{
-              setEmail(e.target.value)
+            onChange={(e) => {
+              setEmail(e.target.value);
             }}
             value={email}
           />
@@ -137,8 +134,8 @@ const SignUp = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={e=> {
-              setPassword(e.target.value)
+            onChange={(e) => {
+              setPassword(e.target.value);
             }}
             value={password}
           />
@@ -170,7 +167,7 @@ const SignUp = () => {
         <Copyright />
       </Box>
     </Container>
-  )
-}
+  );
+};
 
 export default SignUp;
