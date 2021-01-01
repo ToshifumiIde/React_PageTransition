@@ -3,7 +3,7 @@ import firebase from "../config/firebase";
 import { AuthContext } from "../AuthService";
 
 const Main = () => {
-  const [messages, setMessages] = useState("");
+  const [messages, setMessages] = useState([]);
   const [value, setValue] = useState("");
   const user = useContext(AuthContext);
 
@@ -22,7 +22,8 @@ const Main = () => {
     setMessages([
       ...messages,
       {
-        user: "john",
+        user:"John",
+        // user: user.displayName,
         content: value,
       },
     ]);
@@ -34,6 +35,15 @@ const Main = () => {
     <div>
       <p>Main</p>
       <ul>
+        {messages.map(message => {
+          return(
+            <li>
+              <span>User : {message.user}</span>
+              <span>Message : {message.content} </span>
+            </li>
+          )
+        })}
+
         <li>sample user : sample message</li>
       </ul>
       <form action="" onSubmit={handleSubmit}>
