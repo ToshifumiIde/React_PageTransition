@@ -1,18 +1,18 @@
-import React from "react";
+import React ,{ useContext } from "react";
 import { Route , Redirect } from "react-router-dom";
 import { AuthContext } from "./AuthService";
 
-const LoggedInRoute =({component:Component , ...rest}) => {
+const LoggedInRoute =({ component: Component , ...rest }) => {
   const user = useContext(AuthContext);
-
+  console.log(user);
   return(
     <Route
-      {...rest}//渡す関数を...restでスプレッド構文化
-      render = {props => {
+      {...rest}//渡す関数を{...rest}でスプレッド構文として全て展開
+      render = {routeProps => {
         user ? (
-          <Component {...props} />
+          <Component { ...routeProps } />
         ) : (
-          <Redirect to={"/login"} />
+          <Redirect to="/login" />
         )
       }}
     />

@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
+import Grid from "@material-ui/core/Grid";
+// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import Grid from '@material-ui/core/Grid';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import firebase from "../config/firebase";
+import { Redirect } from "react-router-dom";
+import { AuthContext } from "../AuthService";
 
 function Copyright() {
   return (
@@ -52,37 +54,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () => {
+const Login = ({ history }) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const user = useContext(AuthContext);
 
   useEffect(() => {
-    const disabledName = name !== "";
+    //emailとpasswordの入力情報の判別
     const disabledEmail = email !== "";
-    // const disabledPassword = password !== "";
     const disabledPassword = password.length >= 6;
-    if (disabledEmail && disabledPassword && disabledName) {
+    console.log(disabledPassword);
+    if (disabledEmail && disabledPassword) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [email, password, name]);
+  }, [email, password]);
+
+  if (user) {
+    return <Redirect to="/main" />;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("送信しました");
     firebase
       .auth()
-      .createUserWithEmailAndPassword( email, password )
-      .then(({ user }) => {
-        user.updateProfile({
-          displayName: name,
-        });
-        // .then(()=>{
-        //   history.push("/main")
-        // })
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        history.push("/main");
       })
       .catch((err) => {
         console.log(err);
@@ -97,10 +99,10 @@ const SignUp = () => {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}></Avatar>
         <Typography component="h1" variant="h4">
-          Sign Up
+          Login
         </Typography>
         <Typography component="h2" variant="h6">
-          Email:test@example.com
+          Email:<span>test@example.com</span>
         </Typography>
         <Typography component="h2" variant="h6">
           Pass:testsample
@@ -111,25 +113,11 @@ const SignUp = () => {
             margin="normal"
             required
             fullWidth
-            id="name"
-            label="お名前(name)"
-            name="name"
-            autoComplete="name"
-            autoFocus
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            value={name}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
             id="email"
             label="メールアドレス(Email Address)"
             name="email"
             autoComplete="email"
+            autoFocus
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -144,6 +132,7 @@ const SignUp = () => {
             label="パスワード(6字以上 Password At least 6 characters)"
             type="password"
             id="password"
+            size=""
             autoComplete="current-password"
             onChange={(e) => {
               setPassword(e.target.value);
@@ -163,15 +152,15 @@ const SignUp = () => {
             disabled={disabled}
             onClick={handleSubmit}
           >
-            SIGN UP
+            Login
           </Button>
-          {/* <Grid container>
+          <Grid container>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-          </Grid> */}
+          </Grid>
         </form>
         {password.length >= 1 && password.length <= 5 && (
           <p style={{ color: "red", textAlign: "center" }}>
@@ -186,4 +175,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;
