@@ -3,10 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
 import Grid from "@material-ui/core/Grid";
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -15,6 +12,7 @@ import Container from "@material-ui/core/Container";
 import firebase from "../config/firebase";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../AuthService";
+// import { Link as Lnk } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -65,7 +63,6 @@ const Login = ({ history }) => {
     //emailとpasswordの入力情報の判別
     const disabledEmail = email !== "";
     const disabledPassword = password.length >= 6;
-    console.log(disabledPassword);
     if (disabledEmail && disabledPassword) {
       setDisabled(false);
     } else {
@@ -73,22 +70,24 @@ const Login = ({ history }) => {
     }
   }, [email, password]);
 
+  console.log(user);
+
   if (user) {
-    return <Redirect to="/main" />;
+    return <Redirect to="/" />;
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("送信しました");
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        history.push("/main");
+        history.push("/");
       })
       .catch((err) => {
         console.log(err);
       });
+    console.log(email , password);
     setPassword("");
     setEmail("");
   };
@@ -99,13 +98,13 @@ const Login = ({ history }) => {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}></Avatar>
         <Typography component="h1" variant="h4">
-          Login
+          ログイン
         </Typography>
         <Typography component="h2" variant="h6">
-          Email:<span>test@example.com</span>
+          仮メールアドレス:<span>test@example.com</span>
         </Typography>
         <Typography component="h2" variant="h6">
-          Pass:testsample
+          仮パスワード:testsample
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -114,7 +113,7 @@ const Login = ({ history }) => {
             required
             fullWidth
             id="email"
-            label="メールアドレス(Email Address)"
+            label="メールアドレス"
             name="email"
             autoComplete="email"
             autoFocus
@@ -129,20 +128,25 @@ const Login = ({ history }) => {
             required
             fullWidth
             name="password"
-            label="パスワード(6字以上 Password At least 6 characters)"
+            label="パスワード（6字以上）"
             type="password"
             id="password"
-            size=""
             autoComplete="current-password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
             value={password}
           />
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+          {/* {password.length >= 1 && password.length <= 5 && (
+            <p style={{ color: "red", textAlign: "center" }}>
+              パスワードは6文字以上入力してください
+            </p>
+          )} */}
+            <p style={{ color: "red", textAlign: "center",}}>
+          {password.length >= 1 && password.length <= 5 && (
+              "パスワードは6文字以上入力してください"
+              )}
+              </p>
           <Button
             type="submit"
             fullWidth
@@ -152,21 +156,18 @@ const Login = ({ history }) => {
             disabled={disabled}
             onClick={handleSubmit}
           >
-            Login
+            ログイン
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/" variant="body2">
-                {"Don't have an account? Sign Up"}
+              {/* <Lnk to="/signup"> */}
+              <Link variant="body2" href="/signup">
+                {"アカウントはお持ちですか ? ご登録はこちらから"}
               </Link>
+              {/* </Lnk> */}
             </Grid>
           </Grid>
         </form>
-        {password.length >= 1 && password.length <= 5 && (
-          <p style={{ color: "red", textAlign: "center" }}>
-            パスワードは6文字以上入力してください
-          </p>
-        )}
       </div>
       <Box mt={8}>
         <Copyright />

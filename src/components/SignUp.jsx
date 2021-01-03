@@ -8,11 +8,9 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import Grid from '@material-ui/core/Grid';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Grid from "@material-ui/core/Grid";
 import firebase from "../config/firebase";
+// import { Link as Lnk } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -52,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () => {
+const SignUp = ({history}) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -62,7 +60,6 @@ const SignUp = () => {
   useEffect(() => {
     const disabledName = name !== "";
     const disabledEmail = email !== "";
-    // const disabledPassword = password !== "";
     const disabledPassword = password.length >= 6;
     if (disabledEmail && disabledPassword && disabledName) {
       setDisabled(false);
@@ -75,14 +72,14 @@ const SignUp = () => {
     e.preventDefault();
     firebase
       .auth()
-      .createUserWithEmailAndPassword( email, password )
+      .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
         user.updateProfile({
           displayName: name,
-        });
-        // .then(()=>{
-        //   history.push("/main")
-        // })
+        })
+      })
+      .then(()=> {
+        history.push("/")
       })
       .catch((err) => {
         console.log(err);
@@ -97,14 +94,14 @@ const SignUp = () => {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}></Avatar>
         <Typography component="h1" variant="h4">
-          Sign Up
+          ご登録
         </Typography>
-        <Typography component="h2" variant="h6">
+        {/* <Typography component="h2" variant="h6">
           Email:test@example.com
         </Typography>
         <Typography component="h2" variant="h6">
           Pass:testsample
-        </Typography>
+        </Typography> */}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -112,7 +109,7 @@ const SignUp = () => {
             required
             fullWidth
             id="name"
-            label="お名前(name)"
+            label="お名前"
             name="name"
             autoComplete="name"
             autoFocus
@@ -127,7 +124,7 @@ const SignUp = () => {
             required
             fullWidth
             id="email"
-            label="メールアドレス(Email Address)"
+            label="メールアドレス"
             name="email"
             autoComplete="email"
             onChange={(e) => {
@@ -141,7 +138,7 @@ const SignUp = () => {
             required
             fullWidth
             name="password"
-            label="パスワード(6字以上 Password At least 6 characters)"
+            label="パスワード（6文字以上）"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -154,6 +151,7 @@ const SignUp = () => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           /> */}
+
           <Button
             type="submit"
             fullWidth
@@ -163,21 +161,18 @@ const SignUp = () => {
             disabled={disabled}
             onClick={handleSubmit}
           >
-            SIGN UP
+            ご登録
           </Button>
-          {/* <Grid container>
+          <Grid container>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+              {/* <Lnk to="/login"> */}
+              <Link variant="body2" href="/login">
+                {"アカウントはお持ちですか ? ログインはこちらから"}
               </Link>
+              {/* </Lnk> */}
             </Grid>
-          </Grid> */}
+          </Grid>
         </form>
-        {password.length >= 1 && password.length <= 5 && (
-          <p style={{ color: "red", textAlign: "center" }}>
-            パスワードは6文字以上入力してください
-          </p>
-        )}
       </div>
       <Box mt={8}>
         <Copyright />
