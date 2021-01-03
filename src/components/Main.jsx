@@ -22,7 +22,6 @@ const Main = ({history}) => {
         const messages = snapshot.docs.map((doc) => {
           return doc.data();
         });
-        console.log(messages);
         setMessages(messages);
       }); //誰かから追加があった場合、常にこのuseEffect()が実行され、chatの情報が追加される。
   }, []);

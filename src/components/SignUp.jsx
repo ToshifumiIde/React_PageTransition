@@ -151,7 +151,11 @@ const SignUp = ({history}) => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           /> */}
-
+          {password.length >= 1 && password.length <= 5 && (
+            <p style={{ color: "red", textAlign: "center" }}>
+              パスワードは6文字以上で設定してください
+            </p>
+          )}
           <Button
             type="submit"
             fullWidth
