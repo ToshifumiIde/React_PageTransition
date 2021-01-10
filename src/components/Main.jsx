@@ -1,14 +1,9 @@
-import React, { 
-  useState,
-  useContext,
-  useEffect,
-} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import firebase from "../config/firebase";
 import { AuthContext } from "../AuthService";
 // import { Link as Lnk } from "react-router-dom";
 
-
-const Main = ({history}) => {
+const Main = ({ history }) => {
   const [messages, setMessages] = useState([]);
   const [value, setValue] = useState("");
   const user = useContext(AuthContext);
@@ -31,16 +26,9 @@ const Main = ({history}) => {
     e.preventDefault();
     if (!value) return alert("メッセージを入力してください");
     firebase.firestore().collection("messages").add({
-      content:value,
-      user:user.displayName,
-    })
-    // setMessages([
-    //   ...messages,
-    //   {
-    //     user: user.displayName,
-    //     content: value,
-    //   },
-    // ]);
+      content: value,
+      user: user.displayName,
+    });
     setValue("");
   };
 
@@ -49,10 +37,10 @@ const Main = ({history}) => {
     firebase
       .auth()
       .signOut()
-      .then(()=> {
+      .then(() => {
         history.push("/login");
       });
-  }; 
+  };
 
   return (
     <div>
@@ -78,11 +66,7 @@ const Main = ({history}) => {
         />
         <button type="submit">送信</button>
       </form>
-      <button
-        onClick={handleLogout}
-      >
-        ログアウト
-      </button>
+      <button onClick={handleLogout}>ログアウト</button>
     </div>
   );
 };
