@@ -85,7 +85,7 @@ const Login = ({ history }) => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(email , password);
+    console.log(email, password);
     setPassword("");
     setEmail("");
   };
@@ -98,12 +98,28 @@ const Login = ({ history }) => {
         <Typography component="h1" variant="h4">
           ログイン
         </Typography>
-        <Typography component="h2" variant="h6">
+        {/*<Typography component="h2" variant="h6">
           仮メールアドレス:<span>test@example.com</span>
         </Typography>
         <Typography component="h2" variant="h6">
           仮パスワード:testsample
-        </Typography>
+        </Typography> */}
+        <Grid container>
+          <Grid item xs={4}>
+            仮メールアドレス:
+          </Grid>
+          <Grid item xs={8}>
+            test@example.com
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid item xs={4}>
+            仮パスワード:
+          </Grid>
+          <Grid item xs={8}>
+            testsample
+          </Grid>
+        </Grid>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -135,16 +151,11 @@ const Login = ({ history }) => {
             }}
             value={password}
           />
-          {/* {password.length >= 1 && password.length <= 5 && (
-            <p style={{ color: "red", textAlign: "center" }}>
-              パスワードは6文字以上入力してください
-            </p>
-          )} */}
-            <p style={{ color: "red", textAlign: "center",}}>
-          {password.length >= 1 && password.length <= 5 && (
-              "パスワードは6文字以上入力してください"
-              )}
-              </p>
+          <p style={{ color: "red", textAlign: "center" }}>
+            {password.length >= 1 &&
+              password.length <= 5 &&
+              "パスワードは6文字以上入力してください"}
+          </p>
           <Button
             type="submit"
             fullWidth
@@ -158,11 +169,9 @@ const Login = ({ history }) => {
           </Button>
           <Grid container>
             <Grid item>
-              {/* <Lnk to="/signup"> */}
               <Link variant="body2" href="/signup">
                 {"アカウントはお持ちですか ? ご登録はこちらから"}
               </Link>
-              {/* </Lnk> */}
             </Grid>
           </Grid>
         </form>

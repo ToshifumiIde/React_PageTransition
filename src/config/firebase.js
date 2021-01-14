@@ -25,6 +25,5 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-// firebase.initializeApp(firebaseConfig);
 //firebase.defaultとdefaultオブジェクト？メソッド？を追加することで解決した
 export default firebase;

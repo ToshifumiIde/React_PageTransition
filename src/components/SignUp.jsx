@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = ({history}) => {
+const SignUp = ({ history }) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -76,10 +76,10 @@ const SignUp = ({history}) => {
       .then(({ user }) => {
         user.updateProfile({
           displayName: name,
-        })
+        });
       })
-      .then(()=> {
-        history.push("/")
+      .then(() => {
+        history.push("/");
       })
       .catch((err) => {
         console.log(err);
@@ -96,12 +96,6 @@ const SignUp = ({history}) => {
         <Typography component="h1" variant="h4">
           ご登録
         </Typography>
-        {/* <Typography component="h2" variant="h6">
-          Email:test@example.com
-        </Typography>
-        <Typography component="h2" variant="h6">
-          Pass:testsample
-        </Typography> */}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -147,10 +141,7 @@ const SignUp = ({history}) => {
             }}
             value={password}
           />
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+
           {password.length >= 1 && password.length <= 5 && (
             <p style={{ color: "red", textAlign: "center" }}>
               パスワードは6文字以上で設定してください
@@ -169,11 +160,9 @@ const SignUp = ({history}) => {
           </Button>
           <Grid container>
             <Grid item>
-              {/* <Lnk to="/login"> */}
               <Link variant="body2" href="/login">
                 {"アカウントはお持ちですか ? ログインはこちらから"}
               </Link>
-              {/* </Lnk> */}
             </Grid>
           </Grid>
         </form>
