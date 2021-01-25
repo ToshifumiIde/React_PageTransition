@@ -27,7 +27,7 @@ const firebaseConfig = {
 //firebaseの初期化
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 //firestoreへのアクセス
-export const firestore = firebaseApp.firestore();
+export const db = firebaseApp.firestore();
 //firebaseのauthentication（ユーザー認証）へのアクセス
 export const auth = firebase.auth();
 //firebaseのストレージ（写真）にアクセス

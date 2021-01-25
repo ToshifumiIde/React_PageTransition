@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { auth, firestore } from "../config/firebase";
-// import firebase from "../config/firebase";
+import { db, auth } from "../config/firebase";
+import firebase from "firebase/app";
 import { AuthContext } from "../AuthService";
 // import { Link as Lnk } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,9 +21,8 @@ const Main = ({ history }) => {
   const user = useContext(AuthContext);
 
   useEffect(() => {
-    firestore
-      .collection("messages")
-      // .orderBy("timestamp", "desc")
+    db.collection("messages")
+      .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
         const messages = snapshot.docs.map((doc) => {
           return doc.data();
@@ -36,11 +35,10 @@ const Main = ({ history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!value) return alert("メッセージを入力してください");
-    firestore.collection("messages").add({
+    db.collection("messages").add({
       content: value,
       user: user.displayName,
-
-      // createdAt: new Date(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setValue("");
   };

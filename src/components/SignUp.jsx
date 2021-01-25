@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 // import firebase from "../config/firebase";
-import {auth , firestore} from "../config/firebase";
+import { auth } from "../config/firebase";
 // import { Link as Lnk } from "react-router-dom";
 
 function Copyright() {
@@ -71,7 +71,7 @@ const SignUp = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      auth
+    auth
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
         user.updateProfile({
