@@ -9,7 +9,8 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import firebase from "../config/firebase";
+// import firebase from "../config/firebase";
+import {auth} from "../config/firebase";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../AuthService";
 // import { Link as Lnk } from "react-router-dom";
@@ -76,8 +77,7 @@ const Login = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    firebase
-      .auth()
+    auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         history.push("/");

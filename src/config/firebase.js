@@ -24,6 +24,16 @@ const firebaseConfig = {
   measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+//firebaseの初期化
+export const firebaseApp = firebase.initializeApp(firebaseConfig);
+//firestoreへのアクセス
+export const firestore = firebaseApp.firestore();
+//firebaseのauthentication（ユーザー認証）へのアクセス
+export const auth = firebase.auth();
+//firebaseのストレージ（写真）にアクセス
+// export const storage = firebase.storage();
+//firebaseのgoogleアカウント認証
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+
 //firebase.defaultとdefaultオブジェクト？メソッド？を追加することで解決した
-export default firebase;
+// export default firebase;

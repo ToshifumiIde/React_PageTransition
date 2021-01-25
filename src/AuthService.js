@@ -1,6 +1,6 @@
 //Contextの継承を定義//
 import React, { useState, useEffect } from "react";
-import firebase from "./config/firebase";
+import { auth } from "./config/firebase";
 
 const AuthContext = React.createContext();
 //コンテキストオブジェクトを生成//
@@ -10,7 +10,8 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     //初回描写時、.onAuthStateChanged()を使用し、認証情報を確認
-    firebase.auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
+    // firebase.auth().onAuthStateChanged((user) => {
       setUser(user);
     });
   }, []);

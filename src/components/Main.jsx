@@ -1,18 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
-import firebase from "../config/firebase";
+import { auth, firestore } from "../config/firebase";
+// import firebase from "../config/firebase";
 import { AuthContext } from "../AuthService";
 // import { Link as Lnk } from "react-router-dom";
-// import styles from "./style.css";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  root:{
-    backgroundColor:"#eee",
+  root: {
+    backgroundColor: "#eee",
   },
-  messageList:{
-    listStyle:"none",
-  }
-})
+  messageList: {
+    listStyle: "none",
+  },
+});
 
 const Main = ({ history }) => {
   const classes = useStyles();
@@ -21,34 +21,25 @@ const Main = ({ history }) => {
   const user = useContext(AuthContext);
 
   useEffect(() => {
-    //firebaseから初期データを取得
-    // firebase
-    //   .firestore()
-    //   .collection("messages")
-    //   .onSnapshot((snapshot) => {
-    //     const messages = snapshot.docs.map((doc) => {
-    //       return doc.data();
-    //     });
-    //     setMessages(messages);
-    //   }); //誰かから追加があった場合、常にこのuseEffect()が実行され、chatの情報が追加される。
-    firebase
-      .firestore()
+    firestore
       .collection("messages")
+      // .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
         const messages = snapshot.docs.map((doc) => {
           return doc.data();
         });
         setMessages(messages);
-      }); //誰かから追加があった場合、常にこのuseEffect()が実行され、chatの情報が追加される。
+      });
   }, []);
   console.log(user.displayName);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!value) return alert("メッセージを入力してください");
-    firebase.firestore().collection("messages").add({
+    firestore.collection("messages").add({
       content: value,
       user: user.displayName,
+
       // createdAt: new Date(),
     });
     setValue("");
@@ -56,12 +47,9 @@ const Main = ({ history }) => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        history.push("/login");
-      });
+    auth.signOut().then(() => {
+      history.push("/login");
+    });
   };
 
   return (
