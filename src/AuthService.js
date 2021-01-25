@@ -11,7 +11,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     //初回描写時、.onAuthStateChanged()を使用し、認証情報を確認
     auth.onAuthStateChanged((user) => {
-    // firebase.auth().onAuthStateChanged((user) => {
       setUser(user);
     });
   }, []);
