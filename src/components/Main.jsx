@@ -88,6 +88,7 @@ const Main = ({ history }) => {
                 {new Date(message.timestamp?.toDate()).getFullYear()}年{"  "}
                 {new Date(message.timestamp?.toDate()).getMonth() + 1}月{"  "}
                 {new Date(message.timestamp?.toDate()).getDate()}日{"  "}
+                {new Date(message.timestamp?.toDate()).getDate()}日{"  "}
               </span>
             </li>
           );

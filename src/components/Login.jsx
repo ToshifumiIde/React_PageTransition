@@ -10,10 +10,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 // import firebase from "../config/firebase";
-import {auth} from "../config/firebase";
+import { auth } from "../config/firebase";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "../AuthService";
 // import { Link as Lnk } from "react-router-dom";
+import { googleProvider } from "../config/firebase";
 
 function Copyright() {
   return (
@@ -59,6 +60,12 @@ const Login = ({ history }) => {
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
   const user = useContext(AuthContext);
+
+  const signInGoogle = async () => {
+    await auth
+      .signInWithPopup(googleProvider)
+      .catch((err) => alert(err.message));
+  };
 
   useEffect(() => {
     //emailとpasswordの入力情報の判別
@@ -166,6 +173,14 @@ const Login = ({ history }) => {
             onClick={handleSubmit}
           >
             ログイン
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={signInGoogle}
+          >
+            Googleアカウントでログイン
           </Button>
           <Grid container>
             <Grid item>
