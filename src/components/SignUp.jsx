@@ -55,12 +55,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = ({ history }) => {
+export const SignUp = ({ history }) => {
   const classes = useStyles();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const user = useContext(AuthProvider);
 
   useEffect(() => {
@@ -113,6 +113,8 @@ const SignUp = ({ history }) => {
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
+            autoComplete="name"
+            autoFocus
             variant="outlined"
             margin="normal"
             required
@@ -120,40 +122,38 @@ const SignUp = ({ history }) => {
             id="name"
             label="お名前"
             name="name"
-            autoComplete="name"
-            autoFocus
             onChange={(e) => {
               setName(e.target.value);
             }}
             value={name}
           />
           <TextField
-            variant="outlined"
-            margin="normal"
-            required
+            autoComplete="email"
             fullWidth
             id="email"
             label="メールアドレス"
+            margin="normal"
             name="email"
-            autoComplete="email"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            required
             value={email}
+            variant="outlined"
           />
           <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="パスワード（6文字以上）"
-            type="password"
-            id="password"
             autoComplete="current-password"
+            fullWidth
+            id="password"
+            variant="outlined"
+            label="パスワード（6文字以上）"
+            margin="normal"
+            name="password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            required
+            type="password"
             value={password}
           />
           {password.length >= 1 && password.length <= 5 && (
@@ -198,5 +198,3 @@ const SignUp = ({ history }) => {
     </Container>
   );
 };
-
-export default SignUp;

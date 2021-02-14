@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ history }) => {
+export const Login = ({ history }) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -95,9 +95,8 @@ const Login = ({ history }) => {
       .catch((err) => {
         alert(err.message);
       });
-    console.log(email, password);
-    setPassword("");
     setEmail("");
+    setPassword("");
   };
 
   return (
@@ -108,12 +107,6 @@ const Login = ({ history }) => {
         <Typography component="h1" variant="h4">
           ログイン
         </Typography>
-        {/*<Typography component="h2" variant="h6">
-          仮メールアドレス:<span>test@example.com</span>
-        </Typography>
-        <Typography component="h2" variant="h6">
-          仮パスワード:testsample
-        </Typography> */}
         <Grid container>
           <Grid item xs={4}>
             仮メールアドレス:
@@ -203,5 +196,3 @@ const Login = ({ history }) => {
     </Container>
   );
 };
-
-export default Login;

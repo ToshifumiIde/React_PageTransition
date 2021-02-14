@@ -1,12 +1,12 @@
 import React from "react";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import Main from "./Main";
+import { SignUp } from "./SignUp";
+import { Login } from "./Login";
+import { Main } from "./Main";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoggedInRoute from "../LoggedInRoute";
 import { AuthProvider } from "../AuthService";
 
-const App = () => {
+export const App = () => {
   return (
     <AuthProvider>
       <Router>
@@ -19,5 +19,3 @@ const App = () => {
     </AuthProvider>
   );
 };
-
-export default App;
