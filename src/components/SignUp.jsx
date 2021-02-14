@@ -113,21 +113,6 @@ export const SignUp = ({ history }) => {
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
-            autoComplete="name"
-            autoFocus
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="お名前"
-            name="name"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            value={name}
-          />
-          <TextField
             autoComplete="email"
             fullWidth
             id="email"
@@ -155,6 +140,21 @@ export const SignUp = ({ history }) => {
             required
             type="password"
             value={password}
+          />
+          <TextField
+            autoComplete="name"
+            autoFocus
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="お名前"
+            name="name"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            value={name}
           />
           {password.length >= 1 && password.length <= 5 && (
             <p style={{ color: "red", textAlign: "center" }}>

@@ -60,6 +60,7 @@ export const Post = ({ history }) => {
       <form action="" onSubmit={handleSubmit}>
         <label htmlFor="title">投稿タイトル</label>
         <input
+          autoFocus
           id="title"
           placeholder="◯◯商談見積提示など"
           required

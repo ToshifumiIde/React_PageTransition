@@ -57,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const guestName = process.env.REACT_APP_FIREBASE_GUEST_USER;
+const guestEmail = process.env.REACT_APP_FIREBASE_GUEST_EMAIL;
+const guestPassword = process.env.REACT_APP_FIREBASE_GUEST_PASSWORD;
+
 export const Login = ({ history }) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -85,6 +89,18 @@ export const Login = ({ history }) => {
     });
   };
 
+  const signInGuest = async (e) => {
+    e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(guestEmail, guestPassword)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     auth
@@ -107,7 +123,7 @@ export const Login = ({ history }) => {
         <Typography component="h1" variant="h4">
           ログイン
         </Typography>
-        <Grid container>
+        {/* <Grid container>
           <Grid item xs={4}>
             仮メールアドレス:
           </Grid>
@@ -122,7 +138,7 @@ export const Login = ({ history }) => {
           <Grid item xs={8}>
             testsample
           </Grid>
-        </Grid>
+        </Grid> */}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -160,14 +176,26 @@ export const Login = ({ history }) => {
               "パスワードは6文字以上入力してください"}
           </p>
           <Button
-            type="submit"
+            className={classes.submit}
+            color="primary"
             fullWidth
+            // disabled={disabled}
+            onClick={signInGuest}
+            startIcon={<EmailIcon />}
+            type="submit"
             variant="contained"
+          >
+            ゲストログイン
+          </Button>
+          <Button
             color="primary"
             className={classes.submit}
             disabled={disabled}
+            fullWidth
             onClick={handleSubmit}
             startIcon={<EmailIcon />}
+            type="submit"
+            variant="contained"
           >
             ログイン
           </Button>
@@ -175,7 +203,7 @@ export const Login = ({ history }) => {
             fullWidth
             variant="contained"
             color="primary"
-            // className={classes.submit}
+            className={classes.submit}
             onClick={signInGoogle}
             startIcon={<CameraIcon />}
           >
