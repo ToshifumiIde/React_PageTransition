@@ -16,6 +16,9 @@ import { AuthContext } from "../AuthService";
 // import { Link as Lnk } from "react-router-dom";
 import { googleProvider } from "../config/firebase";
 
+import CameraIcon from "@material-ui/icons/Camera";
+import EmailIcon from "@material-ui/icons/Email";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -50,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 3),
   },
 }));
 
@@ -60,12 +63,6 @@ const Login = ({ history }) => {
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
   const user = useContext(AuthContext);
-
-  const signInGoogle = async () => {
-    await auth
-      .signInWithPopup(googleProvider)
-      .catch((err) => alert(err.message));
-  };
 
   useEffect(() => {
     //emailとpasswordの入力情報の判別
@@ -82,6 +79,12 @@ const Login = ({ history }) => {
     return <Redirect to="/" />;
   }
 
+  const signInGoogle = async () => {
+    await auth.signInWithPopup(googleProvider).catch((err) => {
+      alert(err.message);
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     auth
@@ -90,7 +93,7 @@ const Login = ({ history }) => {
         history.push("/");
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.message);
       });
     console.log(email, password);
     setPassword("");
@@ -149,7 +152,7 @@ const Login = ({ history }) => {
             required
             fullWidth
             name="password"
-            label="パスワード（6字以上）"
+            label="パスワード（6文字以上）"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -171,6 +174,7 @@ const Login = ({ history }) => {
             className={classes.submit}
             disabled={disabled}
             onClick={handleSubmit}
+            startIcon={<EmailIcon />}
           >
             ログイン
           </Button>
@@ -178,7 +182,9 @@ const Login = ({ history }) => {
             fullWidth
             variant="contained"
             color="primary"
+            // className={classes.submit}
             onClick={signInGoogle}
+            startIcon={<CameraIcon />}
           >
             Googleアカウントでログイン
           </Button>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,8 +11,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 // import firebase from "../config/firebase";
-import { auth } from "../config/firebase";
+import { auth, googleProvider } from "../config/firebase";
 // import { Link as Lnk } from "react-router-dom";
+import EmailIcon from "@material-ui/icons/Email";
+import CameraIcon from "@material-ui/icons/Camera";
+import { AuthProvider } from "../AuthService";
 
 function Copyright() {
   return (
@@ -47,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 3),
   },
 }));
 
@@ -57,6 +61,7 @@ const SignUp = ({ history }) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const user = useContext(AuthProvider);
 
   useEffect(() => {
     const disabledName = name !== "";
@@ -68,6 +73,16 @@ const SignUp = ({ history }) => {
       setDisabled(true);
     }
   }, [email, password, name]);
+
+  if (user) {
+    return <Redirect to="/" />;
+  }
+
+  const signInGoogle = async () => {
+    await auth.signInWithPopup(googleProvider).catch((err) => {
+      alert(err.message);
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,12 +97,12 @@ const SignUp = ({ history }) => {
         history.push("/");
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.message);
       });
-    setPassword("");
     setEmail("");
+    setPassword("");
+    setName("");
   };
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -141,7 +156,6 @@ const SignUp = ({ history }) => {
             }}
             value={password}
           />
-
           {password.length >= 1 && password.length <= 5 && (
             <p style={{ color: "red", textAlign: "center" }}>
               パスワードは6文字以上で設定してください
@@ -155,8 +169,19 @@ const SignUp = ({ history }) => {
             className={classes.submit}
             disabled={disabled}
             onClick={handleSubmit}
+            startIcon={<EmailIcon />}
           >
             ご登録
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            // className={classes.submit}
+            onClick={signInGoogle}
+            startIcon={<CameraIcon />}
+          >
+            Googleアカウントでログイン
           </Button>
           <Grid container>
             <Grid item>

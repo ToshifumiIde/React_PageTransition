@@ -75,20 +75,20 @@ const Main = ({ history }) => {
   return (
     <div>
       <p>Main</p>
-      <p>ログインユーザーアドレス：{user ? user.email : "...loading"}</p>
+      <p>ログインユーザー：{user ? user.displayName : "...loading"}</p>
       <ul>
         {messages.map((message, index) => {
           return (
             <li key={index} className={classes.messageList}>
               <span>User : {message.user}</span>
-              <span>タイトル：{message.title}</span>
+              <span>タイトル : {message.title}</span>
               <span>Message : {message.content} </span>
               <span>
                 投稿日：
                 {new Date(message.timestamp?.toDate()).getFullYear()}年{"  "}
                 {new Date(message.timestamp?.toDate()).getMonth() + 1}月{"  "}
                 {new Date(message.timestamp?.toDate()).getDate()}日{"  "}
-                {new Date(message.timestamp?.toDate()).getDate()}日{"  "}
+                {/* {new Date(message.timestamp?.toDate()).getDate()}日{"  "} */}
               </span>
             </li>
           );

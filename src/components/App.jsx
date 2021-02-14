@@ -4,8 +4,8 @@ import SignUp from "./SignUp";
 import Main from "./Main";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoggedInRoute from "../LoggedInRoute";
-
 import { AuthProvider } from "../AuthService";
+
 const App = () => {
   return (
     <AuthProvider>

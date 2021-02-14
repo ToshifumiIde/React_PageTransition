@@ -35,5 +35,4 @@ export const auth = firebase.auth();
 //firebaseのgoogleアカウント認証
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-//firebase.defaultとdefaultオブジェクト？メソッド？を追加することで解決した
 // export default firebase;
