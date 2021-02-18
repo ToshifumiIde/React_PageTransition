@@ -4,6 +4,7 @@ import { db, auth } from "../config/firebase";
 import { AuthContext } from "../AuthService";
 import { makeStyles } from "@material-ui/core/styles";
 import { Post } from "./Post";
+import { Display } from "./Display";
 
 const useStyles = makeStyles({
   root: {
@@ -69,22 +70,39 @@ export const Main = ({ history }) => {
         {messages.map((message, index) => {
           return (
             <li key={index} className={classes.messageList}>
-              <span>担当 : {message.user}</span>
+              <Display
+                key={index}
+                user={message.user}
+                interviewee={message.interviewee}
+                title={message.title}
+                content={message.content}
+                interviewDay={message.interviewDay}
+                startTime={message.startTime}
+                finishedTime={message.finishedTime}
+              />
+              {/* <span>担当 : {message.user}</span>
               <span>面談者 : {message.interviewee} </span>
               <span>タイトル : {message.title}</span>
-              <span>面談内容 : {message.content} </span>
+              <span>面談内容 : {message.content} </span> */}
               <span>
-                面談日時 : 
+                面談日時 :
                 {new Date(message.interviewDay?.toDate()).getFullYear()}年{"  "}
-                {new Date(message.interviewDay?.toDate()).getMonth() + 1}月{"  "}
+                {new Date(message.interviewDay?.toDate()).getMonth() + 1}月
+                {"  "}
                 {new Date(message.interviewDay?.toDate()).getDate()}日{"  "}
                 {message.startTime}〜{message.finishedTime}
               </span>
               <span>
                 投稿日：
                 {new Date(message.timestamp?.toDate()).getFullYear()}年{" "}
-                {new Date(message.timestamp?.toDate()).getMonth() + 1}月{" "}
-                {new Date(message.timestamp?.toDate()).getDate()}日{" "}
+                {
+                // "0" +
+                  (new Date(message.timestamp?.toDate()).getMonth() + 1)
+                  // .slice(
+                  //   -2
+                  // )
+                  }
+                月 {new Date(message.timestamp?.toDate()).getDate()}日{" "}
               </span>
             </li>
           );

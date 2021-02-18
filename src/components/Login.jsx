@@ -1,25 +1,23 @@
 import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../AuthService";
 import Avatar from "@material-ui/core/Avatar";
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
+import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-// import firebase from "../config/firebase";
-import { auth } from "../config/firebase";
-import { Redirect } from "react-router-dom";
-import { AuthContext } from "../AuthService";
-// import { Link as Lnk } from "react-router-dom";
-import { googleProvider } from "../config/firebase";
-
 import CameraIcon from "@material-ui/icons/Camera";
 import EmailIcon from "@material-ui/icons/Email";
+// import firebase from "../config/firebase";
+import { auth, googleProvider } from "../config/firebase";
+import { Redirect } from "react-router-dom";
+// import { Link as Lnk } from "react-router-dom";
 
-function Copyright() {
+const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
@@ -35,7 +33,7 @@ function Copyright() {
       {"."}
     </Typography>
   );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -57,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const guestName = process.env.REACT_APP_FIREBASE_GUEST_USER;
+// const guestName = process.env.REACT_APP_FIREBASE_GUEST_USER;
 const guestEmail = process.env.REACT_APP_FIREBASE_GUEST_EMAIL;
 const guestPassword = process.env.REACT_APP_FIREBASE_GUEST_PASSWORD;
 
@@ -123,22 +121,6 @@ export const Login = ({ history }) => {
         <Typography component="h1" variant="h4">
           ログイン
         </Typography>
-        {/* <Grid container>
-          <Grid item xs={4}>
-            仮メールアドレス:
-          </Grid>
-          <Grid item xs={8}>
-            test@example.com
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={4}>
-            仮パスワード:
-          </Grid>
-          <Grid item xs={8}>
-            testsample
-          </Grid>
-        </Grid> */}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -200,12 +182,12 @@ export const Login = ({ history }) => {
             ログイン
           </Button>
           <Button
-            fullWidth
-            variant="contained"
             color="primary"
             className={classes.submit}
+            fullWidth
             onClick={signInGoogle}
             startIcon={<CameraIcon />}
+            variant="contained"
           >
             Googleアカウントでログイン
           </Button>

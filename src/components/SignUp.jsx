@@ -1,21 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../AuthService";
 import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 // import firebase from "../config/firebase";
 import { auth, googleProvider } from "../config/firebase";
-// import { Link as Lnk } from "react-router-dom";
 import EmailIcon from "@material-ui/icons/Email";
 import CameraIcon from "@material-ui/icons/Camera";
-import { AuthProvider } from "../AuthService";
 
 function Copyright() {
   return (
@@ -61,7 +60,7 @@ export const SignUp = ({ history }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const user = useContext(AuthProvider);
+  const user = useContext(AuthContext);
 
   useEffect(() => {
     const disabledName = name !== "";
@@ -74,6 +73,7 @@ export const SignUp = ({ history }) => {
     }
   }, [email, password, name]);
 
+  console.log(user);
   if (user) {
     return <Redirect to="/" />;
   }
