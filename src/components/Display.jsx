@@ -18,10 +18,10 @@ export const Display = ({
       <span>面談タイトル：{title}</span>
       <span>面談内容：{content}</span>
       <span>
-        面談日時：{new Date(interviewDay?.toDate()).getFullYear()}年
-        {new Date(interviewDay?.toDate()).getMonth() + 1}月
-        {new Date(interviewDay?.toDate()).getDate()}日{startTime}〜
-        {finishedTime}
+        面談日時：{new Date(interviewDay?.toDate()).getFullYear()}年{" "}
+        {("0" + (new Date(interviewDay?.toDate()).getMonth() + 1)).slice(-2)}月{" "}
+        {("0" + new Date(interviewDay?.toDate()).getDate()).slice(-2)}日{" "}
+        {startTime}〜{finishedTime}
       </span>
     </div>
   );

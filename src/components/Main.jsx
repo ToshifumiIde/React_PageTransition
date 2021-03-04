@@ -93,18 +93,15 @@ export const Main = ({ history }) => {
                 {new Date(message.interviewDay?.toDate()).getDate()}日{"  "}
                 {message.startTime}〜{message.finishedTime}
               </span> */}
-              <span>
+              {/* <span>
                 投稿日：
                 {new Date(message.timestamp?.toDate()).getFullYear()}年{" "}
-                {
-                // "0" +
+                {(
+                  "0" +
                   (new Date(message.timestamp?.toDate()).getMonth() + 1)
-                  // .slice(
-                  //   -2
-                  // )
-                  }
+                ).slice(-2)}
                 月 {new Date(message.timestamp?.toDate()).getDate()}日{" "}
-              </span>
+              </span> */}
             </li>
           );
         })}
