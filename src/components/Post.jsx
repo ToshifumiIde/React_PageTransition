@@ -5,6 +5,8 @@ import { AuthContext } from "../AuthService";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "./Post.module.css";
 import { DatePicker } from "@material-ui/pickers";
+import SendIcon from "@material-ui/icons/Send";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
@@ -134,9 +136,16 @@ export const Post = ({ history }) => {
             setFinishedTime(e.target.value);
           }}
         />
-        <button type="submit" disabled={!title || !interviewee || !conclusion}>
+        {/* <button type="submit" disabled={!title || !interviewee || !conclusion}>
           送信
-        </button>
+        </button> */}
+        <Button
+          color="primary"
+          disabled={!title || !interviewee || !conclusion}
+          endIcon={<SendIcon />}
+        >
+          送信
+        </Button>
       </form>
     </>
   );
