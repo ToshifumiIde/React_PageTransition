@@ -1,3 +1,5 @@
-.post_{
-  
+.post_button {
+  color:#666;
+  background-color: transparent;
+  cursor: pointer;
 }

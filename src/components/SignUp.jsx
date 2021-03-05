@@ -177,7 +177,7 @@ export const SignUp = ({ history }) => {
             fullWidth
             variant="contained"
             color="primary"
-            // className={classes.submit}
+            className={classes.submit}
             onClick={signInGoogle}
             startIcon={<CameraIcon />}
           >

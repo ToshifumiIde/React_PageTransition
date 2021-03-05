@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Post } from "./Post";
 import { Display } from "./Display";
 import styles from "./Main.module.css";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
@@ -107,7 +109,11 @@ export const Main = ({ history }) => {
         })}
       </ul>
       <Post />
-      <button onClick={handleLogout}>ログアウト</button>
+      <Button onClick={handleLogout} endIcon={<ExitToAppIcon />}
+      className={styles.main_logout}
+      >
+        ログアウト
+      </Button>
     </div>
   );
 };

@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import CameraIcon from "@material-ui/icons/Camera";
 import EmailIcon from "@material-ui/icons/Email";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 // import firebase from "../config/firebase";
 import { auth, googleProvider } from "../config/firebase";
 import { Redirect } from "react-router-dom";
@@ -158,18 +159,6 @@ export const Login = ({ history }) => {
               "パスワードは6文字以上入力してください"}
           </p>
           <Button
-            className={classes.submit}
-            color="primary"
-            fullWidth
-            // disabled={disabled}
-            onClick={signInGuest}
-            startIcon={<EmailIcon />}
-            type="submit"
-            variant="contained"
-          >
-            ゲストログイン
-          </Button>
-          <Button
             color="primary"
             className={classes.submit}
             disabled={disabled}
@@ -180,6 +169,18 @@ export const Login = ({ history }) => {
             variant="contained"
           >
             ログイン
+          </Button>
+          <Button
+            className={classes.submit}
+            color="primary"
+            fullWidth
+            // disabled={disabled}
+            onClick={signInGuest}
+            startIcon={<PermIdentityIcon />}
+            type="submit"
+            variant="contained"
+          >
+            ゲストログイン
           </Button>
           <Button
             color="primary"

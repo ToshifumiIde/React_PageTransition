@@ -139,13 +139,14 @@ export const Post = ({ history }) => {
         {/* <button type="submit" disabled={!title || !interviewee || !conclusion}>
           送信
         </button> */}
-        <Button
+        <button
           color="primary"
           disabled={!title || !interviewee || !conclusion}
-          endIcon={<SendIcon />}
+          className={styles.post_button}
         >
           送信
-        </Button>
+          <SendIcon className={styles.post_sendIcon} />
+        </button>
       </form>
     </>
   );
